@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "studio"
+version = "0.0.0"
+description = "Studio service"
+authors = ["Tam Kieu <tam.kieu@deltacognition.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11"
+fastapi = "0.92.0"
+sqlalchemy = "1.4.41"
+python-dotenv = "1.0.0"
+uvicorn = "0.21.1"
+psycopg2 = "2.9.6"
+gunicorn = "20.1.0"
+python-multipart = "0.0.6"
+pydantic = {extras = ["email"], version = "1.10.8"}
+email-validator = "2.0.0.post2"
+aiohttp = "3.8.4"
+boto3 = "1.26.144"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

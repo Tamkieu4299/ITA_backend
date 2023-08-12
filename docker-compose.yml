@@ -1,0 +1,72 @@
+version: "3.8"
+
+networks:
+  ita_network:
+    driver: bridge
+
+services:
+  studio-service-prod:
+    build:
+      context: ./src/studio
+      dockerfile: ./Dockerfile
+      target: production
+    image: ita-app-server-studio-service-image-prod
+    container_name: ita-app-server-studio-service-container-prod
+    profiles:
+      - prod
+    restart: always
+    networks:
+      - ita_network
+    env_file:
+      - ./.env
+    environment:
+      - PORT=${PORT}
+    ports:
+      - "${PORT}:8000"
+    depends_on:
+      - postgres-db
+    links:
+      - postgres-db
+
+  studio-service-dev:
+    build:
+      context: ./src/studio
+      dockerfile: ./Dockerfile
+      target: development
+    image: ita-app-server-studio-service-image-dev
+    container_name: ita-app-server-studio-service-container-dev
+    profiles:
+      - dev
+    networks:
+      - ita_network
+    ports:
+      - "${PORT}:8000"
+    environment:
+      - PORT=${PORT}
+    env_file:
+      - ./.env
+    depends_on:
+      - postgres-db
+    links:
+      - postgres-db
+    volumes:
+      - ./src/studio/app:/app
+      - ./src/studio/logs:/var/logs
+      - ./src/studio/static:/var/static
+
+  postgres-db:
+    container_name: postgres-db
+    image: postgres
+    profiles:
+      - prod
+      - dev
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - ita_network
+    env_file:
+      - ./.env
+
+volumes:
+  postgres_db:

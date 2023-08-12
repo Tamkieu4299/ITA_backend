@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "ita-app-server"
+version = "0.0.0"
+description = "ITA project"
+authors = ["Nam Thai <nam.thai@deltacognition.com>"]
+readme = "README.md"
+packages = [{include = "ita_app_server"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pre-commit = "^3.2.2"
+isort = "^5.12.0"
+black = "^23.3.0"
+flake8 = "^6.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.2.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+)/
+'''
